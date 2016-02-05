@@ -3,6 +3,8 @@ from urllib import request
 import re
 import os
 
+BASE_URL = 'http://www.spacex.com'
+
 def scrape(chosen_ids):
     response = request.urlopen('http://www.spacex.com/careers/list?type[]=20&type[]=37&type[]=53&location[]=54')
     soup = BeautifulSoup(response.readall(), 'html.parser')
@@ -20,14 +22,14 @@ def scrape(chosen_ids):
 
     for row in rows:
         curr_id = int(get_job_id.search(row.a['href']).group(1))
-            if curr_id not in previous_job_ids:
-                 previous_job_ids.append(curr_id)
-                 if first:
-                    print("New jobs at SpaceX:")
-                    first = False
-                 print('\t' + row.a.text + ' - ' + str(curr_id))
-            if curr_id in chosen_ids:
-                os.system('firefox --new-tab ' + row.a['href'])
+        if curr_id not in previous_job_ids:
+             previous_job_ids.append(curr_id)
+             if first:
+                print("New jobs at SpaceX:")
+                first = False
+             print('\t' + row.a.text + ' - ' + str(curr_id))
+        if curr_id in chosen_ids:
+            os.system("firefox --new-tab '" + BASE_URL + row.a['href'] + "'")
          
     if not first: # There were new postings
       previous_job_file = open('spaceX.txt', 'w')

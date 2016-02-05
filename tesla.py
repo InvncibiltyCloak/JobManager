@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import requests
 from urllib import parse as urlparse
 import sys
+import os
+import time
 
 DETAIL_URL = 'https://chc.tbe.taleo.net/chc01/ats/careers/requisition.jsp?org=TESLA&cws=1&rid='
 
@@ -42,7 +44,7 @@ def scrape(chosen_ids):
         
         title = entry.a.text
         
-        parsed_entries.append((ref_id, title))
+        parsed_entries.append((ref_id, title, href))
 
     parsed_entries.sort(reverse=True, key=lambda e: e[0])
 
@@ -65,7 +67,7 @@ def scrape(chosen_ids):
             fixed = entry[1].encode(sys.stdout.encoding, errors='replace').decode(sys.stdout.encoding)
             print('\t' + fixed + ' - ' + str(entry[0]))
         if entry[0] in chosen_ids:
-            os.system('firefox --new-tab ' + DETAIL_URL + str(entry[0]))
+            os.system("firefox --new-tab '" + entry[2] + "'")
             
             
     previous_job_file = open('tesla.txt', 'w')

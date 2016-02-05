@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 
 SEARCH_URL = 'https://jobs.boeing.com/search-jobs/results?ActiveFacetID=6252001&CurrentPage=1&RecordsPerPage=10000&Distance=50&RadiusUnitType=0&Keywords=&Location=&Latitude=&Longitude=&ShowRadius=False&FacetTerm=&FacetType=0&FacetFilters[0].ID=6252001&FacetFilters[0].FacetType=2&FacetFilters[0].Count=515&FacetFilters[0].Display=United+States&FacetFilters[0].IsApplied=true&FacetFilters[0].FieldName=&SearchResultsModuleName=Search+Results&SearchFiltersModuleName=Search+Filters&SortCriteria=5&SortDirection=1&SearchType=5&CategoryFacetTerm=&CategoryFacetType=&LocationFacetTerm=&LocationFacetType=&KeywordType=&LocationType=&LocationPath=&OrganizationIds='
 
+BASE_URL = 'https://jobs.boeing.com'
+
 def scrape(chosen_ids):
     try:
         previous_job_file = open('boeing.txt','r')
@@ -26,7 +28,7 @@ def scrape(chosen_ids):
             print('\t' + fixed)
             previous_job_ids.append(int(rid))
         if int(rid) in chosen_ids:
-            os.system('firefox --new-tab ' + job_html.a['href'])
+            os.system("firefox --new-tab '" + BASE_URL + job_html.a['href'] + "'")
         
     previous_job_file = open('boeing.txt', 'w')
     previous_job_file.write(','.join(map(str, previous_job_ids)))

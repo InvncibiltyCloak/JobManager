@@ -31,7 +31,7 @@ for script in scripts:
     mod = importlib.import_module(module_name)
     
     try:
-        results = mod.scrape(chosen_jobs[module_name])
+        results = mod.scrape(chosen_ids[module_name])
     except KeyError:
         results = mod.scrape([])
     
