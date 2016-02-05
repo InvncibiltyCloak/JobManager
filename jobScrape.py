@@ -23,7 +23,7 @@ for line in lines:
         try:
             chosen_ids[employer].append(int(line))
         except KeyError:
-            chosen_ids[employer] = {}
+            chosen_ids[employer] = [int(line)]
 
 employer_names = []
 for script in scripts:
