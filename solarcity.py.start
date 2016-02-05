@@ -1,0 +1,12 @@
+import requests
+from requests import Session
+s = Session()
+s.get('https://solarcity.wd1.myworkdayjobs.com/05/jobs')
+# Get session token here
+response = s.post('https://solarcity.wd1.myworkdayjobs.com/05/searchJob0/replaceFacet/searchJob',data={'facets':'locations','locations':"47e2b0545f1f101c93a58b5388108d40,dea3eede27fe109886732109348f8e66",'sessionSecureToken':'hnjngo2gse7e77mornq94j59qg'})
+j = response.json()
+list = j['body']['children'][2]['children'][0]['listItems']
+for job in list:
+    data = job['title']['instances'][0]
+    print(data['text'] + ' - ' + data['id'])
+

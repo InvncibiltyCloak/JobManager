@@ -1,0 +1,13 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pkl
+
+# gedit temp files
+*~
+
+#other
+*.txt
+chosen
